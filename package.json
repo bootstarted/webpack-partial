@@ -1,7 +1,9 @@
 {
 	"name": "webpack-partial",
-	"version": "0.1.0",
+	"version": "0.1.4",
 	"author": "Izaak Schroeder <izaak.schroeder@gmail.com>",
+	"description": "Webpack partials.",
+	"license": "CC0-1.0",
 	"main": "dist/lib/partial.js",
 	"scripts": {
 		"prepublish:lib": "./node_modules/.bin/babel --stage 0 -d dist/lib lib",
