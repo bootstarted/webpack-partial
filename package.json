@@ -11,6 +11,16 @@
 		"prepublish": "npm run prepublish:lib && npm run prepublish:test",
 		"test": "NODE_ENV=test ./node_modules/.bin/mocha -r dist/test/helpers/chai.js --recursive dist/test/spec"
 	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/izaakschroeder/webpack-partial"
+	},
+	"bugs": {
+		"url": "https://github.com/izaakschroeder/webpack-partial/issues"
+	},
+	"keywords": [
+		"webpack"	
+	],
 	"dependencies": {
 		"lodash": "^3.10.1"
 	},
