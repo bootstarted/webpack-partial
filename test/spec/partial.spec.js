@@ -44,4 +44,18 @@ describe('partial', () => {
 		expect(partial({ value: 1 }, ({ value }) => ({ value: value + 1 })))
 			.to.have.property('value', 2);
 	});
+
+	it('should handle strings', () => {
+		expect(partial('../fixtures/test.js'))
+			.to.have.property('value', 5);
+	});
+
+	it('should overwrite entrypoints', () => {
+		expect(partial(
+			{ entry: { a: [ 1, 2 ] } },
+			{ entry: { a: [ 3, 4 ] } }
+		)).to.have.property('entry')
+			.to.have.property('a')
+			.to.have.length(2);
+	});
 });
