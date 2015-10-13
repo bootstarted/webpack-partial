@@ -58,4 +58,12 @@ describe('partial', () => {
 			.to.have.property('a')
 			.to.have.length(2);
 	});
+
+	it('shoud not overwrite functions', () => {
+		expect(partial(
+			{ foo: [ function() { } ] },
+			{ foo: [ function() { } ] }
+		)).to.have.property('foo')
+			.to.have.length(2);
+	})
 });
