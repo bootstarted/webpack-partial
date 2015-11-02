@@ -11,10 +11,13 @@ Intelligently merge webpack configuration files.
 ```javascript
 import partial from 'webpack-partial';
 
+import config1 from './my/config/1.webpack.config.js';
+import config2 from './my/config/2.webpack.config.js';
+
 export default partial(
   { entry: './src/input.js' },
-  './my/config/1.webpack.config.js',
-  './my/config/2.webpack.config.js',
+  config1,
+  config2,
   { plugins: [ new MyPlugin() ] },
   // ...
 );
