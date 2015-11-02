@@ -45,9 +45,10 @@ describe('partial', () => {
 			.to.have.property('value', 2);
 	});
 
-	it('should handle strings', () => {
-		expect(partial('../fixtures/test.js'))
-			.to.have.property('value', 5);
+	it('should throw on strings', () => {
+		expect(() => {
+			partial('../fixtures/test.js')
+		}).to.throw(TypeError);
 	});
 
 	it('should overwrite entrypoints', () => {
