@@ -4,7 +4,7 @@
 	"author": "Izaak Schroeder <izaak.schroeder@gmail.com>",
 	"description": "Webpack partials.",
 	"license": "CC0-1.0",
-	"main": "dist/lib/partial.js",
+	"main": "dist/lib/index.js",
 	"scripts": {
 		"prepublish:lib": "./node_modules/.bin/babel -d dist/lib lib",
 		"prepublish:test": "./node_modules/.bin/babel -d dist/test test",
