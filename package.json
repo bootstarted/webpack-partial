@@ -6,10 +6,9 @@
   "license": "CC0-1.0",
   "main": "dist/lib/index.js",
   "scripts": {
-    "prepublish:lib": "./node_modules/.bin/babel -d dist/lib lib",
-    "prepublish:test": "./node_modules/.bin/babel -d dist/test test",
-    "prepublish": "npm run prepublish:lib && npm run prepublish:test",
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha --recursive dist/test/spec"
+    "prepublish": "./node_modules/.bin/babel -s -d dist/lib lib",
+		"spec": "NODE_ENV=test ./node_modules/.bin/mocha --compilers js:babel-core/register -r adana-dump -R spec test/spec",
+    "test": "npm run spec"
   },
   "repository": {
     "type": "git",
@@ -27,9 +26,13 @@
     "lodash": "^3.10.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.0.14",
-    "babel-preset-metalab": "^0.1.1",
-    "mocha": "^2.2.5",
+		"adana-cli": "^0.1.1",
+    "adana-dump": "^0.1.0",
+    "adana-format-lcov": "^0.1.1",
+    "babel-cli": "^6.4.5",
+    "babel-core": "^6.4.5",
+    "babel-preset-metalab": "^0.2.0",
+    "mocha": "^2.3.4",
     "chai": "^3.2.0"
   }
 }
