@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import {expect} from 'chai';
 import partial from '../../lib/partial';
 
 describe('partial', () => {
@@ -7,14 +7,14 @@ describe('partial', () => {
   });
 
   it('should handle single instances', () => {
-    expect(partial({ color: 'red' }))
+    expect(partial({color: 'red'}))
       .to.have.property('color', 'red');
   });
 
   it('should handle simple merges', () => {
     const result = partial(
-      { color: 'red', number: 5 },
-      { color: 'green', item: 'foo' }
+      {color: 'red', number: 5},
+      {color: 'green', item: 'foo'}
     );
     expect(result).to.have.property('color', 'green');
     expect(result).to.have.property('number', 5);
@@ -23,15 +23,15 @@ describe('partial', () => {
 
   it('should concatenate arrays', () => {
     expect(partial(
-      { items: [ 1 ]},
-      { items: [ 2 ]}
+      {items: [1]},
+      {items: [2]}
     )).to.have.property('items').to.have.length(2);
   });
 
   it('should merge named entries in arrays', () => {
     const result = partial(
-      { items: [ { name: 'foo', color: 'red', item: 4 } ] },
-      { items: [ { name: 'foo', color: 'green' } ] }
+      {items: [{name: 'foo', color: 'red', item: 4}]},
+      {items: [{name: 'foo', color: 'green'}]}
     );
     expect(result)
       .to.have.property('items')
@@ -41,20 +41,20 @@ describe('partial', () => {
   });
 
   it('should handle functions', () => {
-    expect(partial({ value: 1 }, ({ value }) => ({ value: value + 1 })))
+    expect(partial({value: 1}, ({value}) => ({value: value + 1})))
       .to.have.property('value', 2);
   });
 
   it('should throw on strings', () => {
     expect(() => {
-      partial('../fixtures/test.js')
+      partial('../fixtures/test.js');
     }).to.throw(TypeError);
   });
 
   it('should overwrite entrypoints', () => {
     expect(partial(
-      { entry: { a: [ 1, 2 ] } },
-      { entry: { a: [ 3, 4 ] } }
+      {entry: {a: [1, 2]}},
+      {entry: {a: [3, 4]}}
     )).to.have.property('entry')
       .to.have.property('a')
       .to.have.length(2);
@@ -62,9 +62,9 @@ describe('partial', () => {
 
   it('shoud not overwrite functions', () => {
     expect(partial(
-      { foo: [ function() { } ] },
-      { foo: [ function() { } ] }
+      {foo: [function() { }]},
+      {foo: [function() { }]}
     )).to.have.property('foo')
       .to.have.length(2);
-  })
+  });
 });
