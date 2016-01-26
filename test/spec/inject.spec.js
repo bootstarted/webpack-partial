@@ -1,17 +1,17 @@
-import { expect } from 'chai';
+import {expect} from 'chai';
 import inject from '../../lib/inject';
 
 describe('inject', () => {
   it('should handle strings', () => {
-    expect(inject('index.js', [ 'a', 'b' ])).to.have.length(3);
+    expect(inject('index.js', ['a', 'b'])).to.have.length(3);
   });
 
   it('should handle arrays', () => {
-    expect(inject(['index.js'], [ 'a', 'b' ])).to.have.length(3);
+    expect(inject(['index.js'], ['a', 'b'])).to.have.length(3);
   });
 
   it('should handle objects', () => {
-    expect(inject({ a: 'index.js' }, [ 'a', 'b' ]))
+    expect(inject({a: 'index.js'}, ['a', 'b']))
       .to.have.property('a').to.have.length(3);
   });
 
