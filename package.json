@@ -8,7 +8,7 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint --ignore-path .gitignore .",
     "prepublish": "./node_modules/.bin/babel -s -d dist/lib lib",
-    "spec": "NODE_ENV=test ./node_modules/.bin/mocha --compilers js:babel-core/register -r adana-dump -R spec test/spec",
+    "spec": "NODE_ENV=test ./node_modules/.bin/mocha --compilers js:babel-core/register -r test/helper/chai -r adana-dump -R spec test/spec",
     "test": "npm run lint && npm run spec"
   },
   "repository": {
@@ -33,12 +33,14 @@
     "babel-cli": "^6.4.5",
     "babel-core": "^6.4.5",
     "babel-preset-metalab": "^0.2.0",
+    "chai": "^3.2.0",
     "eslint": "^1.10.3",
     "eslint-config-metalab": "^2.0.0-beta.1",
     "eslint-plugin-filenames": "^0.2.0",
     "eslint-plugin-import": "^0.12.1",
     "eslint-plugin-react": "^3.16.0",
     "mocha": "^2.3.4",
-    "chai": "^3.2.0"
+    "sinon": "^1.17.4",
+    "sinon-chai": "^2.8.0"
   }
 }
