@@ -24,22 +24,23 @@
     "include"
   ],
   "dependencies": {
-    "lodash": "^4.0.1"
+    "lodash": "^4.12.0"
   },
   "devDependencies": {
     "adana-cli": "^0.1.1",
     "adana-dump": "^0.1.0",
     "adana-format-lcov": "^0.1.1",
-    "babel-cli": "^6.4.5",
-    "babel-core": "^6.4.5",
-    "babel-preset-metalab": "^0.2.0",
-    "chai": "^3.2.0",
-    "eslint": "^1.10.3",
-    "eslint-config-metalab": "^2.0.0-beta.1",
+    "babel-cli": "^6.9.0",
+    "babel-core": "^6.9.0",
+    "babel-preset-metalab": "^0.2.1",
+    "chai": "^3.5.0",
+    "eslint": "^2.10.2",
+    "eslint-config-metalab": "^4.0.1",
     "eslint-plugin-filenames": "^0.2.0",
-    "eslint-plugin-import": "^0.12.1",
-    "eslint-plugin-react": "^3.16.0",
-    "mocha": "^2.3.4",
+    "eslint-plugin-import": "^1.8.0",
+    "eslint-plugin-lodash-fp": "^1.2.0",
+    "eslint-plugin-react": "^5.1.1",
+    "mocha": "^2.4.5",
     "sinon": "^1.17.4",
     "sinon-chai": "^2.8.0"
   }
