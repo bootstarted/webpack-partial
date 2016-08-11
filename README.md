@@ -44,10 +44,25 @@ const config = plugin(new StatsWebpackPlugin(), {/* webpack config here */});
 
 The available helpers are:
 
+ * loader
  * merge
  * output
  * plugin
  * tap
+
+### loader(loader, config)
+
+Add a loader configuration to an existing webpack configuration.
+
+```javascript
+import loader from 'webpack-partial/loader';
+
+const babel = loader({
+  test: /\.js$/,
+  loader: 'babel-loader',
+})
+babel(webpackConfig);
+```
 
 ### merge(source, target)
 
