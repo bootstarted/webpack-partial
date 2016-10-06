@@ -46,7 +46,6 @@ The available helpers are:
 
  * entry
  * loader
- * merge
  * output
  * plugin
  * tap
@@ -86,32 +85,6 @@ const babel = loader({
   loader: 'babel-loader',
 })
 babel(webpackConfig);
-```
-
-### merge(source, target)
-
-Take an existing webpack configuration and try to intelligently merge it into another webpack configuration. Since webpack is weird and we don't always know what you want merge makes a best effort – it might not always get it right. There are other more precise functions you can use if you need.
-
-The rules for merging entries are:
-
- * Replace any primitive value (string, number, etc.).
- * Concatenate arrays; if entries share a `name` property, merge them instead.
- * Merge objects; if entries share the same key, merge them instead.
- * The webpack `entry` configuration value is always replaced.
-
-```javascript
-import merge from 'webpack-partial/merge';
-
-const devMode = merge({
-  devtool: 'source-map',
-  module: {
-    preLoaders: {
-      test: /\.js$/,
-      loader: 'eslint-loader'
-    }
-  }
-});
-devMode(webpackConfig);
 ```
 
 ### output(object, config)
