@@ -44,11 +44,35 @@ const config = plugin(new StatsWebpackPlugin(), {/* webpack config here */});
 
 The available helpers are:
 
+ * entry
  * loader
  * merge
  * output
  * plugin
  * tap
+
+### entry(values, config)
+
+Modify the webpack config `entry` object.
+
+```javascript
+// Set the `entry` to `index.js`
+entry('index.js');
+
+// Append `foo.js` to all existing entrypoints.
+entry.append('foo.js');
+entry((previous) => [...previous, 'foo.js'])
+```
+
+The `entry` function takes either a value to add to entry _or_ a function that maps the existing entry values to new ones. The values property is _always_ an array for consistency even though internally webpack can use objects, strings or arrays.
+
+The callback has this signature:
+
+```javascript
+(previous: Array, key: ?String, config: Object) => { ... }
+```
+
+The `key` property represents the key in object-style entrypoints and `config` is the existing webpack configuration object.
 
 ### loader(loader, config)
 
