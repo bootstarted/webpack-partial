@@ -6,7 +6,7 @@
   "license": "CC0-1.0",
   "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint --ignore-path .gitignore .",
+    "lint": "./node_modules/.bin/eslint .",
     "prepublish": "./node_modules/.bin/babel -s -d ./ lib",
     "spec": "NODE_ENV=test ./node_modules/.bin/mocha --compilers js:babel-core/register -r test/helper/chai -r adana-dump -R spec test/spec",
     "test": "npm run lint && npm run spec"
@@ -42,6 +42,7 @@
     "eslint-plugin-react": "^5.1.1",
     "mocha": "^2.4.5",
     "sinon": "^1.17.4",
-    "sinon-chai": "^2.8.0"
+    "sinon-chai": "^2.8.0",
+    "webpack": "^2.1.0-beta.25"
   }
 }

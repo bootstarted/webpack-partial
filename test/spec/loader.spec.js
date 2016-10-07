@@ -23,29 +23,12 @@ describe('loader', () => {
       .to.have.length(2);
   });
 
-  it('should merged duplicate named loaders', () => {
-    const result = loader(
-      {name: 'x', color: 'green'},
-      {module: {loaders: [{name: 'x', test: 'bar', color: 'red'}]}}
-    );
-
-    expect(result)
-      .to.have.property('module')
-      .to.have.property('loaders')
-      .to.have.length(1);
-    expect(result.module.loaders[0]).to.have.property('test', 'bar');
-    expect(result.module.loaders[0]).to.have.property('color', 'green');
-  });
-
-  it('should not merged non-duplicate named loaders', () => {
-    const result = loader(
-      {name: 'y', color: 'green'},
-      {module: {loaders: [{name: 'x', test: 'bar', color: 'red'}]}}
-    );
-
-    expect(result)
-      .to.have.property('module')
-      .to.have.property('loaders')
-      .to.have.length(2);
+  it('should fail with extra properties', () => {
+    expect(() => {
+      loader(
+        {name: 'x', color: 'green'},
+        {module: {loaders: [{name: 'x', test: 'bar', color: 'red'}]}}
+      )
+    }).to.throw(Error)
   });
 });
