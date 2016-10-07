@@ -1,6 +1,6 @@
 {
   "name": "webpack-partial",
-  "version": "1.5.0",
+  "version": "2.0.0",
   "author": "Izaak Schroeder <izaak.schroeder@gmail.com>",
   "description": "Webpack partials.",
   "license": "CC0-1.0",
