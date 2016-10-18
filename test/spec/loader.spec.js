@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import loader from '../../lib/loader';
+import loader, {__config} from '../../lib/loader';
 
 describe('loader', () => {
   it('should handle empty configs', () => {
@@ -31,4 +31,29 @@ describe('loader', () => {
       )
     }).to.throw(Error)
   });
+
+  describe('webpack@1', () => {
+    beforeEach(() => {
+      __config.isWebpack2 = false;
+    });
+    afterEach(() => {
+      __config.isWebpack2 = true;
+    });
+
+    it('should use `preLoaders` when `enforce` is `pre`', () => {
+      expect(loader({test: /foo/, enforce: 'pre'}, {}))
+        .to.have.property('module')
+        .to.have.property('preLoaders')
+        .to.have.length(1);
+    });
+
+    it('should use `loaders` when no enforcement present', () => {
+      expect(loader({test: /foo/}, {}))
+        .to.have.property('module')
+        .to.have.property('loaders')
+        .to.have.length(1);
+    });
+  });
+
+
 });
