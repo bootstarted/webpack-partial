@@ -53,6 +53,40 @@ describe('loader', () => {
         .to.have.property('loaders')
         .to.have.length(1);
     });
+
+    it('should turn `loader` with multiple `loaders` into strings', () => {
+      const result = loader({
+        test: /foo/,
+        loaders: [
+          'a',
+          {loader: 'foo'},
+          {loader: 'bar', query: {message: 'hello'}}
+        ],
+      }, {});
+      const entry = result.module.loaders[0].loaders;
+      expect(entry).to.have.length(3);
+      expect(entry).to.have.property(0).to.equal('a');
+      expect(entry).to.have.property(1).to.equal('foo');
+      expect(entry).to.have.property(2).to.equal('bar?{"message":"hello"}');
+    });
+
+    it('should fail serializing functions', () => {
+      expect(() => {
+        loader(
+          {loaders:[{loader: 'a', query: {x: () => {}}}]},
+          {}
+        )
+      }).to.throw(TypeError);
+    });
+
+    it('should fail on garbage in loaders', () => {
+      expect(() => {
+        loader(
+          {loaders:[5]},
+          {}
+        )
+      }).to.throw(TypeError);
+    });
   });
 
 
