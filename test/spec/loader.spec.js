@@ -1,5 +1,13 @@
 import {expect} from 'chai';
-import loader, {__config} from '../../lib/loader';
+import loader, {
+  __config,
+  update,
+  remove,
+  find,
+  prepend,
+} from '../../lib/loader';
+import flow from 'lodash/fp/flow';
+import isMatch from "lodash/fp/isMatch";
 
 describe('loader', () => {
   it('should handle empty configs', () => {
@@ -89,5 +97,99 @@ describe('loader', () => {
     });
   });
 
+  describe('update', () => {
+    it('should update the matching target', () => {
+      const result = flow(
+        loader({
+          test: /foo/,
+          loader: 'a',
+        }),
+        update(isMatch({loader: 'a'}), (loader) => {
+          return {
+            ...loader,
+            loader: 'b',
+          };
+        }),
+      )({});
+      const entry = result.module.loaders[0];
+      expect(entry).to.have.property('loader').to.equal('b');
+    });
+    it('should ignore non-matching targets', () => {
+      const result = flow(
+        loader({
+          test: /foo/,
+          loader: 'a',
+        }),
+        update(isMatch({loader: 'z'}), (loader) => {
+          return {
+            ...loader,
+            loader: 'b',
+          };
+        }),
+      )({});
+      const entry = result.module.loaders[0];
+      expect(entry).to.have.property('loader').to.equal('a');
+    });
+  });
 
+  describe('remove', () => {
+    it('should remove the matching target', () => {
+      const result = flow(
+        loader({
+          test: /foo/,
+          loader: 'a',
+        }),
+        remove(isMatch({loader: 'a'}))
+      )({});
+      const entry = expect(result.module.loaders).to.have.length(0);
+    });
+    it('should ignore non-matching targets', () => {
+      const result = flow(
+        loader({
+          test: /foo/,
+          loader: 'a',
+        }),
+        remove(isMatch({loader: 'z'})),
+      )({});
+      expect(result.module.loaders).to.have.length(1);
+    });
+  });
+
+  describe('find', () => {
+    it('should find things', () => {
+      const result = loader({
+        test: /foo/,
+        loader: 'a',
+      }, {});
+      expect(
+        find(isMatch({loader: 'a'}), result)
+      ).to.have.property('loader', 'a');
+    });
+    it('should fail on bad matcher', () => {
+      expect(() => loader.find('potato', {})).to.throw(TypeError);
+    });
+  });
+
+  describe('prepend', () => {
+    it('should prepend things', () => {
+      const result = prepend({
+        test: /foo/,
+        loader: 'a',
+      }, {module: {loaders: [{name: 'x', test: 'bar', color: 'red'}]}});
+      expect(result)
+        .to.have.property('module')
+        .to.have.property('loaders')
+        .to.have.property(0)
+        .to.have.property('loader', 'a');
+    });
+  });
+
+  describe('functions', () => {
+    it('should let you use functions for configs', () => {
+      expect(loader(() => ({test: /foo/}), {}))
+        .to.have.property('module')
+        .to.have.property('loaders')
+        .to.have.length(1);
+    });
+  });
 });
