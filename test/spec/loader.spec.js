@@ -13,21 +13,21 @@ describe('loader', () => {
   it('should handle empty configs', () => {
     expect(loader({test: /foo/}, {}))
       .to.have.property('module')
-      .to.have.property('loaders')
+      .to.have.property('rules')
       .to.have.length(1);
   });
 
   it('should handle empty module options', () => {
     expect(loader({test: /foo/}, {module: {}}))
       .to.have.property('module')
-      .to.have.property('loaders')
+      .to.have.property('rules')
       .to.have.length(1);
   });
 
   it('should append by default', () => {
-    expect(loader({test: /foo/}, {module: {loaders: [1]}}))
+    expect(loader({test: /foo/}, {module: {rules: [1]}}))
       .to.have.property('module')
-      .to.have.property('loaders')
+      .to.have.property('rules')
       .to.have.length(2);
   });
 
@@ -35,17 +35,19 @@ describe('loader', () => {
     expect(() => {
       loader(
         {name: 'x', color: 'green'},
-        {module: {loaders: [{name: 'x', test: 'bar', color: 'red'}]}}
+        {module: {rules: [{name: 'x', test: 'bar', color: 'red'}]}}
       )
     }).to.throw(Error)
   });
 
   describe('webpack@1', () => {
+    let oldVersion;
     beforeEach(() => {
-      __config.isWebpack2 = false;
+      oldVersion = __config.webpackMajorVersion;
+      __config.webpackMajorVersion = 1;
     });
     afterEach(() => {
-      __config.isWebpack2 = true;
+      __config.webpackMajorVersion = oldVersion;
     });
 
     it('should use `preLoaders` when `enforce` is `pre`', () => {
@@ -111,7 +113,7 @@ describe('loader', () => {
           };
         }),
       )({});
-      const entry = result.module.loaders[0];
+      const entry = result.module.rules[0];
       expect(entry).to.have.property('loader').to.equal('b');
     });
     it('should ignore non-matching targets', () => {
@@ -127,7 +129,7 @@ describe('loader', () => {
           };
         }),
       )({});
-      const entry = result.module.loaders[0];
+      const entry = result.module.rules[0];
       expect(entry).to.have.property('loader').to.equal('a');
     });
   });
@@ -141,7 +143,7 @@ describe('loader', () => {
         }),
         remove(isMatch({loader: 'a'}))
       )({});
-      const entry = expect(result.module.loaders).to.have.length(0);
+      const entry = expect(result.module.rules).to.have.length(0);
     });
     it('should ignore non-matching targets', () => {
       const result = flow(
@@ -151,7 +153,7 @@ describe('loader', () => {
         }),
         remove(isMatch({loader: 'z'})),
       )({});
-      expect(result.module.loaders).to.have.length(1);
+      expect(result.module.rules).to.have.length(1);
     });
   });
 
@@ -178,7 +180,7 @@ describe('loader', () => {
       }, {module: {loaders: [{name: 'x', test: 'bar', color: 'red'}]}});
       expect(result)
         .to.have.property('module')
-        .to.have.property('loaders')
+        .to.have.property('rules')
         .to.have.property(0)
         .to.have.property('loader', 'a');
     });
@@ -188,7 +190,7 @@ describe('loader', () => {
     it('should let you use functions for configs', () => {
       expect(loader(() => ({test: /foo/}), {}))
         .to.have.property('module')
-        .to.have.property('loaders')
+        .to.have.property('rules')
         .to.have.length(1);
     });
   });
