@@ -19,6 +19,9 @@ describe('entry', () => {
     error: {
       entry: false,
     },
+    empty: {
+
+    },
   };
 
   describe('flatMap', () => {
@@ -66,6 +69,12 @@ describe('entry', () => {
         'b.js',
         configs.string
       )).to.have.property('entry').to.deep.equal(['a.js', 'b.js']);
+    });
+    it('should work on empty configs', () => {
+      expect(append(
+        'a.js',
+        configs.empty
+      )).to.have.property('entry').to.deep.equal(['a.js']);
     });
   });
 
